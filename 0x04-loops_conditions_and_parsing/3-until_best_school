@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Displays 'Best School' 10x using the until loop
+
+str='Best School'
+min=1
+max=10
+
+until [ "$min" -gt "$max" ]
+do
+echo "$str"
+((max--))
+done
