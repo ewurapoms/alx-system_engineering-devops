@@ -13,6 +13,6 @@ do
     then
         echo "Buzz"
   else
-      printf "%d\n" $num;
+      printf "%d\n" $fb;
   fi
   done
