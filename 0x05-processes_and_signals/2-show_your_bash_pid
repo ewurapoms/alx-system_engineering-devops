@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Script builds on task 1, must contain the bash keyword here
+# shellcheck disable=SC2009
+
+ps -aux | grep bash
