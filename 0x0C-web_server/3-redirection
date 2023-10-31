@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Configures Nginx server for redirections
+
+redirect_301="\\\trewrite ^/redirect_me https://medium.com/@abenapomaa permanent;"
+
+apt-get update
+
+apt-get install -y nginx
+
+echo "Hello World!" > /var/www/html/index.html
+sed -i "30i $redirect_301" /etc/nginx/sites-available/default
+
+service nginx restart
