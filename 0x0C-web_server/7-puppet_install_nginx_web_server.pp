@@ -1,20 +1,21 @@
 # Installs and Configures Nginx server with Puppet Manifest
 
 package { 'nginx':
-  ensure => present,
+  ensure => installed,
 }
 
-file_path { 'install':
+file_line { 'install':
   ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
+  path   => '/etc/nginx/sites-enabled/default',
   after  => 'listen 80 default_server;',
   line   => 'rewrite ^/redirect_me https://medium.com/@abenapomaa permanent;',
 }
+
 file { '/var/www/html/index.html':
-  content  => 'Hello World!',
+  content => 'Hello World!',
 }
 
 service { 'nginx':
-  ensure  => active,
+  ensure  => running,
   require => Package['nginx'],
 }
