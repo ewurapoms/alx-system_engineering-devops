@@ -1,22 +1,20 @@
 # Installs and Configures Nginx server with Puppet Manifest
 
 package { 'nginx':
-  listen_port => 80,
+  ensure => present,
 }
-file { '/etc/nginx/sites-available/redirect_me':
-  ensure => file,
+
+file_path { 'install':
+  ensure => 'present',
+  path   => '/etc/nginx/sites-available/default',
+  after  => 'listen 80 default_server;',
+  line   => 'rewrite ^/redirect_me https://medium.com/@abenapomaa permanent;',
 }
-nginx::resource::server { 'default':
-  ensure   => present,
-  location => [
-    {
-      location => '/',
-      content  => 'Hello World!',
-    },
-    {
-      location => '^/redirect_me$',
-      rewrite  => "https://medium.com/@abenapomaa permanent;",
-    },
-  ],
-  require  => File['/etc/nginx/sites-available/redirect_me'],
+file { '/var/www/html/index.html':
+  content  => 'Hello World!',
+}
+
+service { 'nginx':
+  ensure  => active,
+  require => Package['nginx'],
 }
