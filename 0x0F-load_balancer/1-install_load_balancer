@@ -13,8 +13,8 @@ frontend abena_frontend
 
 backend abena_backend
   balance roundrobin
-  server 405012-web-01 100.25.191.16:80
-  server 405012-web-02 52.91.118.253:80
+  server 397930-web-01 100.25.191.16:80
+  server 397930-web-02 52.91.118.253:80
 EOL
 
 # enable haproxy to be started by init script
