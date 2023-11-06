@@ -9,16 +9,13 @@ apt-get install -y haproxy
 cat <<EOL >> /etc/haproxy/haproxy.cfg
 frontend abena_frontend
   bind *:80
-  default_backend abena_frontend
+  default_backend myservers
 
-backend abena_backend
+backend myservers
   balance roundrobin
   server 397930-web-01 100.25.191.16:80
   server 397930-web-02 52.91.118.253:80
 EOL
 
-# enable haproxy to be started by init script
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
-
 #restarts haproxy
-service haproxy start
+service haproxy restart
