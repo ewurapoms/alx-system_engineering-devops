@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# script that simplifies the execution in task 0
+sudo ln -s -f /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx start
+kill "$(pgrep 'nginx' | head -1)"

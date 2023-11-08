@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# debugging nginx port 80
+
+#add Nginx if it doesn't exist
+sudo apt-get update
+sudo apt-get install -y nginx
+
+# Creates a symbolic link of default file in sites-available
+sudo ln -s -f /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+#restarts nginx
+sudo service nginx restart
