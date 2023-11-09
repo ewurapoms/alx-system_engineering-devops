@@ -33,14 +33,11 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend abena_frontend
+frontend abena_https
   bind *:80
-  http-request set-header X-Forwarded-Proto http
-  default_backend myservers
-
-frontend abena_frontend
-  bind *:443 ssl crt /etc/ssl/abenapomaa.tech.pem
-  http-request set-header X-Forwarded-Proto https
+  bind *:443 ssl crt /etc/haproxy/certs/www.abenapomaa.tech.pem
+  mode http
+  option forwardfor
   default_backend myservers
 
 backend myservers
