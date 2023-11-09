@@ -32,22 +32,18 @@ defaults
         errorfile 502 /etc/haproxy/errors/502.http
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
+
 frontend abena_frontend
   bind *:80
+  http-request set-header X-Forwarded-Proto http
   default_backend myservers
 
-frontend www-https
-  bind *:443 ssl crt /etc/haproxy/certs/www.abenapomaa.pem
-  mode http
-  option forwardfor
-  default_backend www-backend
+frontend abena_frontend
+  bind *:443 ssl crt /etc/ssl/abenapomaa.tech.pem
+  http-request set-header X-Forwarded-Proto https
+  default_backend myservers
 
 backend myservers
   balance roundrobin
-  server 397930-web-01 100.25.191.16:80
-  server 397930-web-02 52.91.118.253:80
-
-backend www-backend
-  balance roundrobin
-  server 397930-web-01 100.25.191.16:443 check
-  server 397930-web-02 52.91.118.253:443 check
+  server 397930-web-01 100.25.191.16:80 check
+  server 397930-web-02 52.91.118.253:80 check
