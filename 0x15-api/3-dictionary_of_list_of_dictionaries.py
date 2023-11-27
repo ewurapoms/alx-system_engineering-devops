@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """Exports employee data to JSON format"""
+import json
 import requests
 import sys
-import json
 
 
 def todo_json():

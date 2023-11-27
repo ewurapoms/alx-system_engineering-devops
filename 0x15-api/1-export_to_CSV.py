@@ -2,8 +2,8 @@
 """Exports employee's ID data on todo list to CSV format"""
 
 from requests import get
-import sys
 import csv
+import sys
 
 
 if __name__ == '__main__':
