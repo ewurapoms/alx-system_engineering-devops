@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-""" Module that queries the Reddit API recursively"""
-
+"""
+Show number of occurrences of keywords in hot post titles (case-insensitive)
+"""
 import re
 import requests
 
