@@ -1,33 +1,69 @@
-#0x19. Postmortem
-
-Any software system will eventually fail, and that failure can come from a wide range of possible factors: bugs, traffic spikes, security issues, hardware failures, natural disasters, human error… Failing is normal and failing is actually a great opportunity to learn and improve. Any great Software Engineer must learn from his/her mistakes to make sure that they won’t happen again. Failing is fine, but failing twice because of the same issue is not.
-
-A postmortem is a tool widely used in the tech industry. After any outage, the team(s) in charge of the system will write a summary that has 2 main goals:
-
-To provide the rest of the company’s employees easy access to information detailing the cause of the outage. Often outages can have a huge impact on a company, so managers and executives have to understand what happened and how it will impact their work.
-And to ensure that the root cause(s) of the outage has been discovered and that measures are taken to make sure it will be fixed.
+# E-MALL CRASH INCIDENT REPORT 
+	
+![image](postmortem_img.png)
 
 
-Requirements:
+## Issue summary
+Duration:
+Start Time: January 15, 2023, 09:45 AM UTC
+End Time: January 15, 2023, 11:30 AM UTC
 
-Issue Summary (that is often what executives will read) must contain:
-duration of the outage with start and end times (including timezone)
-what was the impact (what service was down/slow? What were user experiencing? How many % of the users were affected?)
-what was the root cause
-Timeline (format bullet point, format: time - keep it short, 1 or 2 sentences) must contain:
+Impact:
+The outage affected the availability of our e-commerce website. Users experienced slow page load times, and approximately 30% of users were unable to complete transactions during the outage.
 
-when was the issue detected
-how was the issue detected (monitoring alert, an engineer noticed something, a customer complained…)
-actions taken (what parts of the system were investigated, what were the assumption on the root cause of the issue)
-misleading investigation/debugging paths that were taken
-which team/individuals was the incident escalated to
-how the incident was resolved
-Root cause and resolution must contain:
 
-explain in detail what was causing the issue
-explain in detail how the issue was fixed
-Corrective and preventative measures must contain:
+## Timelines (UTC+3)
+Detection:
+January 15, 2023, 09:45 AM UTC
+The issue was detected through automated monitoring alerts on elevated response times and error rates.
 
-what are the things that can be improved/fixed (broadly speaking)
-a list of tasks to address the issue (be very specific, like a TODO, example: patch Nginx server, add monitoring on server memory…)
-Be brief and straight to the point, between 400 to 600 words
+Actions Taken:
+
+09:50 AM UTC: The operations team began investigating server logs and identified a surge in database connection attempts.
+10:05 AM UTC: Assumed the issue might be due to a DDoS attack, initiated traffic analysis, but no malicious activity was detected.
+10:30 AM UTC: Realized the database was under stress, focused investigation on database performance.
+10:45 AM UTC: Identified inefficient queries causing a spike in CPU usage on the database server.
+Misleading Paths:
+
+Investigated network issues initially, leading to a temporary misallocation of resources.
+Explored the possibility of a recent code deployment causing issues, but version control and rollbacks proved this assumption wrong.
+Escalation:
+
+11:00 AM UTC: Incident escalated to the development team to optimize database queries.
+11:15 AM UTC: Communications team informed for customer-facing updates.
+Resolution:
+
+11:30 AM UTC: The development team optimized database queries, reducing the load on the database server.
+11:35 AM UTC: Normal website functionality restored; users experienced improved page load times.
+
+
+## Root Cause and Resolution:
+
+Root Cause:
+The primary issue was identified as a sudden surge in traffic triggering inefficient database queries. These queries, compounded by increased user load, created a bottleneck in database connections.
+
+Resolution:
+Database queries were optimized to reduce the load on the server. Additionally, a caching mechanism was implemented to mitigate future spikes in traffic, ensuring smoother scalability.
+
+
+##Corrective and Preventative Measures
+
+Improvements/Fixes:
+
+Implement enhanced monitoring to proactively identify and address traffic spikes.
+Conduct regular performance testing to optimize database queries and server configurations.
+Tasks:
+
+Short-Term:
+Implement caching mechanisms to handle sudden traffic increases.
+Update monitoring thresholds to trigger alerts earlier during unusual traffic patterns.
+Medium-Term:
+Schedule regular database performance reviews and optimizations.
+Conduct a post-mortem review to improve incident response and communication.
+Long-Term:
+Explore load balancing solutions to distribute traffic efficiently.
+Collaborate with infrastructure providers to prepare for scalable resources during peak times.
+
+
+## Conclusion
+This incident highlighted the need for proactive monitoring, efficient communication during outages, and continual optimization of systems to ensure a seamless user experience. The identified corrective and preventative measures aim to fortify our infrastructure against similar issues in the future.
