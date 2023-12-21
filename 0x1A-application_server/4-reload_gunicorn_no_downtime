@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
-# Gracefully shuts down and restarts Gunicorn
+# Gracefully reloads Gunicorn
 
-pgrep gunicorn | xargs kill -HUP
+# Use pgrep to find the process IDs of Gunicorn
+pids=$(pgrep gunicorn)
+
+# Check if any Gunicorn processes are running
+if [ -n "$pids" ]; then
+    # Use xargs to send the HUP signal to the found process IDs
+    echo "$pids" | xargs kill -HUP
+else
+    echo "No Gunicorn processes found."
+fi
