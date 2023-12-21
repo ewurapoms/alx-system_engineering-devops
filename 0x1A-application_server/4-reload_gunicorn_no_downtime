@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Gracefully shuts down and restarts Gunicorn
 
-pgrep gunicorn && pgrep gunicorn | xargs kill -HUP || echo "No Gunicorn processes found."
+pgrep gunicorn | xargs -I {} kill -HUP {}
